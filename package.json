@@ -1,0 +1,29 @@
+{
+  "name": "webooster",
+  "version": "1.0.0",
+  "description": "Webデザイン開発に必要なパッケージを集めたリポジトリです。git cloneして各環境に合わせてお使いください。",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koluku/webooster.git"
+  },
+  "author": "koluku",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/koluku/webooster/issues"
+  },
+  "homepage": "https://github.com/koluku/webooster#readme",
+  "devDependencies": {
+    "browser-sync": "^2.11.1",
+    "gulp": "^3.9.1",
+    "gulp-jade": "^1.1.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-pleeease": "^2.0.2",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^2.2.0",
+    "gulp-sourcemaps": "^1.6.0"
+  }
+}
