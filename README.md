@@ -22,11 +22,11 @@ headタグ以下を書くファイル。
 
 ### _header.jade
 
-#header以下を書くファイル。
+header以下を書くファイル。
 
 ### _footer.jade
 
-#footer以下を書くファイル。
+footer以下を書くファイル。
 
 ## Sass
 
@@ -57,7 +57,7 @@ Mixinファイル。_layout.scss、_mod.scssに影響するmixinを書く。
 ### _layout.scss
 
 レイアウトファイル。ページ毎に大きく変動しないスタイルを指定する。  
-初期では#header、#main、#footerが未指定状態で存在する。
+初期ではheader、main、footerが未指定状態で存在する。
 
 ### _mod.scss
 
