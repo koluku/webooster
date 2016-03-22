@@ -4,9 +4,11 @@
 
 # 使い方
 
-`git clone`するだけで使えます。
+`git clone`と`npm install`するだけで使えます。Gulpは`gulp`だけで実行できます。
 
 # ファイル
+
+gulp実行時にhtmlとcssはルート上に出力されますが、jsは移動しません。
 
 ## Jade
 
