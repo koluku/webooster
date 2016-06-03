@@ -32,7 +32,7 @@ footer以下を書くファイル。
 
 ## Sass
 
-CSSはJadeで出力します。
+CSSはSassで出力します。
 
 ### style.scss
 
