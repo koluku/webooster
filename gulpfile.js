@@ -20,7 +20,7 @@ gulp.task('browser-sync', function() {
    });
 });
 gulp.task('jade', function() {
-  gulp.src([paths.jade + '**/*.jade', '!' + paths.jade + '**/_*.jade'])
+  gulp.src([paths.jade + '**/!(_)*.jade'])
     .pipe(plumber({
       errorHandler: notify.onError('Error: <%= error.message %>')
     }))
