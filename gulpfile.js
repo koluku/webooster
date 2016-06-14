@@ -5,7 +5,6 @@ var notify      = require('gulp-notify');
 var plumber     = require('gulp-plumber');
 var pleeease    = require('gulp-pleeease');
 var sass        = require('gulp-sass');
-var sourcemaps  = require('gulp-sourcemaps');
 
 paths = {
   jade: ['./jade/'],
@@ -36,12 +35,10 @@ gulp.task('sass', function() {
       errorHandler: notify.onError('Error: <%= error.message %>')
     }))
     .pipe(sass({outputStyle: 'compressed'}))
-    .pipe(sourcemaps.init())
     .pipe(pleeease({
       browsers: ['last 2 versions'],
       minifier: false
     }))
-    .pipe(sourcemaps.write())
     .pipe(gulp.dest('./'))
     .pipe(browserSync.stream());
 });
