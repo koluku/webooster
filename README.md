@@ -9,6 +9,7 @@
 ```
 git clone https://github.com/koluku/webooster.git
 npm install
+npm install -D babel
 ```
 
 その後、package.jsonの内容を書き換えてください。
