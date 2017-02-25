@@ -1,25 +1,25 @@
-var browserSync = require('browser-sync').create();
-var gulp = require('gulp');
-var ejs = require('gulp-ejs');
-var notify = require('gulp-notify');
-var plumber = require('gulp-plumber');
-var pleeease = require('gulp-pleeease');
-var sass = require('gulp-sass');
+const browserSync = require('browser-sync').create();
+const gulp = require('gulp');
+const ejs = require('gulp-ejs');
+const notify = require('gulp-notify');
+const plumber = require('gulp-plumber');
+const pleeease = require('gulp-pleeease');
+const sass = require('gulp-sass');
 
-var paths = {
-  ejs: './src/ejs/',
-  scss: './src/scss/'
+const paths = {
+  ejs: './src/ejs',
+  scss: './src/scss'
 };
 
-gulp.task('browser-sync', function() {
+gulp.task('browser-sync', () => {
    browserSync.init({
      server: {
        baseDir: './src/'
      }
    });
 });
-gulp.task('ejs:develop', function() {
-  gulp.src([paths.ejs + '**/!(_)*.ejs'])
+gulp.task('ejs:develop', () => {
+  gulp.src(['${paths.ejs}/**/!(_)*.ejs'])
     .pipe(plumber({
       errorHandler: notify.onError('Error: <%= error.message %>')
     }))
@@ -27,16 +27,16 @@ gulp.task('ejs:develop', function() {
     .pipe(gulp.dest('./src/'))
     .pipe(browserSync.stream());
 });
-gulp.task('ejs:release', function() {
-  gulp.src([paths.ejs + '**/!(_)*.ejs'])
+gulp.task('ejs:release', () => {
+  gulp.src(['${paths.ejs}/**/!(_)*.ejs'])
     .pipe(plumber({
       errorHandler: notify.onError('Error: <%= error.message %>')
     }))
     .pipe(ejs('',{'ext': '.html'}))
     .pipe(gulp.dest('./build/'));
 });
-gulp.task('sass:develop', function() {
-  gulp.src(paths.scss + '**/*.scss')
+gulp.task('sass:develop', () => {
+  gulp.src('${paths.scss}/**/*.scss')
     .pipe(plumber({
       errorHandler: notify.onError('Error: <%= error.message %>')
     }))
@@ -45,8 +45,8 @@ gulp.task('sass:develop', function() {
     .pipe(gulp.dest('./src/'))
     .pipe(browserSync.stream());
 });
-gulp.task('sass:release', function() {
-  gulp.src(paths.scss + '**/*.scss')
+gulp.task('sass:release', () => {
+  gulp.src('${paths.scss}/**/*.scss')
     .pipe(plumber({
       errorHandler: notify.onError('Error: <%= error.message %>')
     }))
@@ -58,8 +58,8 @@ gulp.task('sass:release', function() {
     .pipe(gulp.dest('./build/'));
 });
 
-gulp.task('default', ['ejs:develop','sass:develop','browser-sync'], function() {
-  gulp.watch([paths.ejs + '**/*.ejs'], ['ejs:develop']);
-  gulp.watch([paths.scss + '**/*.scss'], ['sass:develop']);
+gulp.task('default', ['ejs:develop','sass:develop','browser-sync'], () => {
+  gulp.watch(['${paths.ejs}/**/*.ejs'], ['ejs:develop']);
+  gulp.watch(['${paths.scss}/**/*.scss'], ['sass:develop']);
 });
 gulp.task('release', ['ejs:release','sass:release']);
