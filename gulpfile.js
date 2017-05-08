@@ -1,32 +1,35 @@
 var browserSync = require('browser-sync').create();
 var gulp        = require('gulp');
-var jade        = require('gulp-jade');
+var ejs         = require('gulp-ejs');
 var notify      = require('gulp-notify');
 var plumber     = require('gulp-plumber');
 var pleeease    = require('gulp-pleeease');
+var rimraf      = require('rimraf');
 var sass        = require('gulp-sass');
 
 paths = {
-  jade: ['./jade/'],
-  scss: ['./scss/']
+  ejs   : './src/ejs/',
+  scss  : './src/scss/',
+  build : './build/'
 };
 
 gulp.task('browser-sync', function() {
    browserSync.init({
      server: {
-       baseDir: './'
+       baseDir: paths.build
      }
    });
 });
-gulp.task('jade', function() {
-  gulp.src([paths.jade + '**/!(_)*.jade'])
+gulp.task('clean', function(cb) {
+  rimraf(paths.build, cb);
+});
+gulp.task('ejs', function() {
+  gulp.src(paths.ejs + '**/!(_)*.ejs')
     .pipe(plumber({
       errorHandler: notify.onError('Error: <%= error.message %>')
     }))
-    .pipe(jade({
-      pretty: true
-    }))
-    .pipe(gulp.dest('./'))
+    .pipe(ejs({},{},{'ext': '.html'}))
+    .pipe(gulp.dest(paths.build))
     .pipe(browserSync.stream());
 });
 gulp.task('sass', function() {
@@ -34,16 +37,16 @@ gulp.task('sass', function() {
     .pipe(plumber({
       errorHandler: notify.onError('Error: <%= error.message %>')
     }))
-    .pipe(sass({outputStyle: 'compressed'}))
+    .pipe(sass())
     .pipe(pleeease({
       browsers: ['last 2 versions'],
-      minifier: false
+      minifier: true
     }))
-    .pipe(gulp.dest('./'))
+    .pipe(gulp.dest(paths.build))
     .pipe(browserSync.stream());
 });
 
-gulp.task('default', ['jade','sass','browser-sync'], function() {
-  gulp.watch([paths.jade + '**/*.jade'], ['jade']);
+gulp.task('default', ['clean', 'ejs', 'sass', 'browser-sync'], function() {
+  gulp.watch([paths.ejs + '**/*.ejs'], ['ejs']);
   gulp.watch([paths.scss + '**/*.scss'], ['sass']);
 });
