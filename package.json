@@ -1,8 +1,8 @@
 {
-  "name": "webooster",
+  "name": "charlotte",
   "version": "1.0.0",
   "main": "gulpfile.js",
-  "repository": "git@github.com:koluku/webooster.git",
+  "repository": "git@github.com:koluku/charlotte.git",
   "author": "koluku",
   "license": "MIT",
   "dependencies": {
