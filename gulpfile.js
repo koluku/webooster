@@ -1,16 +1,17 @@
 var browserSync = require('browser-sync').create();
-var gulp        = require('gulp');
-var ejs         = require('gulp-ejs');
-var notify      = require('gulp-notify');
-var plumber     = require('gulp-plumber');
-var pleeease    = require('gulp-pleeease');
-var rimraf      = require('rimraf');
-var sass        = require('gulp-sass');
+var gulp = require('gulp');
+var notify = require('gulp-notify');
+var plumber = require('gulp-plumber');
+var rimraf = require('rimraf');
+var sass = require('gulp-sass');
+var pug = require('gulp-pug');
+var autoprefixer = require('gulp-autoprefixer');
+var cleanCSS = require('gulp-clean-css');
 
 paths = {
-  ejs   : './src/ejs/',
-  scss  : './src/scss/',
-  build : './build/'
+  html: './src/html/',
+  css: './src/css/',
+  build: './build/'
 };
 
 gulp.task('browser-sync', function() {
@@ -23,30 +24,30 @@ gulp.task('browser-sync', function() {
 gulp.task('clean', function(cb) {
   rimraf(paths.build, cb);
 });
-gulp.task('ejs', function() {
-  gulp.src(paths.ejs + '**/!(_)*.ejs')
-    .pipe(plumber({
-      errorHandler: notify.onError('Error: <%= error.message %>')
-    }))
-    .pipe(ejs({},{},{'ext': '.html'}))
-    .pipe(gulp.dest(paths.build))
-    .pipe(browserSync.stream());
+
+gulp.task('compile-html', function(cb) {
+  gulp.src(paths.html + '**/*.pug')
+  .pipe(plumber({
+    errorHandler: notify.onError('Error: <%= error.message %>')
+  }))
+  .pipe(pug())
+  .pipe(gulp.dest(paths.build))
+  .pipe(browserSync.stream());
 });
-gulp.task('sass', function() {
-  gulp.src(paths.scss + '**/*.scss')
+
+gulp.task('compile-css', function() {
+  gulp.src(paths.css + '**/*.scss')
     .pipe(plumber({
       errorHandler: notify.onError('Error: <%= error.message %>')
     }))
     .pipe(sass())
-    .pipe(pleeease({
-      browsers: ['last 2 versions'],
-      minifier: true
-    }))
+    .pipe(autoprefixer())
+    .pipe(cleanCSS())
     .pipe(gulp.dest(paths.build))
     .pipe(browserSync.stream());
 });
 
-gulp.task('default', ['clean', 'ejs', 'sass', 'browser-sync'], function() {
-  gulp.watch([paths.ejs + '**/*.ejs'], ['ejs']);
-  gulp.watch([paths.scss + '**/*.scss'], ['sass']);
+gulp.task('default', ['clean', 'compile-html', 'compile-css', 'browser-sync'], function() {
+  gulp.watch([paths.ejs + '**/*.pug'], ['compile-html']);
+  gulp.watch([paths.scss + '**/*.scss'], ['compile-css']);
 });
