@@ -1,12 +1,12 @@
+var autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
+var cleanCSS = require('gulp-clean-css');
 var gulp = require('gulp');
 var notify = require('gulp-notify');
 var plumber = require('gulp-plumber');
+var pug = require('gulp-pug');
 var rimraf = require('rimraf');
 var sass = require('gulp-sass');
-var pug = require('gulp-pug');
-var autoprefixer = require('gulp-autoprefixer');
-var cleanCSS = require('gulp-clean-css');
 
 paths = {
   html: './src/html/',
