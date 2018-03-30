@@ -1,6 +1,6 @@
 {
   "name": "webooster",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "main": "gulpfile.js",
   "repository": "git@github.com:koluku/webooster.git",
   "author": "koluku",
