@@ -9,6 +9,7 @@
 ```
 git clone https://github.com/koluku/webooster.git
 npm install
+gulp
 ```
 
 ## License
